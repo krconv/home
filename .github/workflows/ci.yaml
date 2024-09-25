@@ -33,7 +33,7 @@ jobs:
 
     - name: Install Poetry
       if: steps.changes.outputs.scripts == 'true'
-      run: curl -sSL https://install.python-poetry.org | python3 -
+      run: pipx install poetry
 
     - name: Generate requirements.txt
       if: steps.changes.outputs.scripts == 'true'
