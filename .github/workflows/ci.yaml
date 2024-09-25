@@ -50,6 +50,7 @@ jobs:
         source: scripts/appdaemon.yaml,scripts/requirements.txt
         target: ${{ secrets.SSH_PATH_SCRIPTS }}
         rm: true
+        strip_components: 1
 
     - name: Copy Scripts to Home Assistant
       if: steps.changes.outputs.scripts == 'true'
