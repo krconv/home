@@ -49,7 +49,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: scripts/appdaemon.yaml,scripts/requirements.txt,scripts/apps
         target: ${{ secrets.SSH_PATH_SCRIPTS }}
-        rm: true
         strip_components: 1
 
     - name: Copy Config to Home Assistant
