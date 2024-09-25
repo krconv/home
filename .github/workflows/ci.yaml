@@ -47,19 +47,19 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        source: scripts/appdaemon.yaml,scripts/requirements.txt
+        source: scripts/appdaemon.yaml,scripts/requirements.txt,scripts/apps
         target: ${{ secrets.SSH_PATH_SCRIPTS }}
         rm: true
         strip_components: 1
 
-    - name: Copy Scripts to Home Assistant
-      if: steps.changes.outputs.scripts == 'true'
+    - name: Copy Config to Home Assistant
+      if: steps.changes.outputs.config == 'true'
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.SSH_HOST }}
         port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        source: scripts
-        target: ${{ secrets.SSH_PATH_SCRIPTS }}/apps
+        source: config
+        target: ${{ secrets.SSH_PATH_CONFIG }}
         strip_components: 1
