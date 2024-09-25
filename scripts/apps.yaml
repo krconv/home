@@ -1,8 +1,8 @@
 ---
 hello_world:
-  module: hello
+  module: src.hello
   class: HelloWorld
 
 configure_light_circuits:
-  module: configure_light_circuits
+  module: src.configure_light_circuits
   class: ConfigureLightCircuits

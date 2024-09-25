@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "scripts"
+    ],
+    "mypy-type-checker.cwd": "${workspaceFolder}/scripts"
+}
