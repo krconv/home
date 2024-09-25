@@ -5,7 +5,7 @@ appdaemon:
   elevation: 0
   plugins:
     HASS:
-      type: has
+      type: hass
       ha_url: <home_assistant_base_url>
       token: <some_long_lived_access_token>s
 

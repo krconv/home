@@ -3,6 +3,7 @@ appdaemon:
   latitude: 0.0
   longitude: 0.0
   elevation: 0
+  production_mode: true
   plugins:
     HASS:
       type: hass

@@ -1,8 +1,12 @@
----
-hello_world:
-  module: hello
-  class: HelloWorld
+# # configure_light_circuits:
+# #   module: src.configure_light_circuits
+# #   class: ConfigureLightCircuits
 
-# configure_light_circuits:
-#   module: src.configure_light_circuits
-#   class: ConfigureLightCircuits
+# hello_world:
+#     module: hello
+#     class: HelloWorld
+
+main_bedroom_ceiling_lights:
+    module: light_circuit
+    class: App
+    area: main_bedroom
