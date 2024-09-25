@@ -23,7 +23,7 @@ jobs:
       run: curl -sSL https://install.python-poetry.org | python3 -
 
     - name: Generate requirements.txt
-      run: poetry export --without-hashes --format=requirements.txt > requirements.txt
+      run: poetry export --directory=scripts --without-hashes --format=requirements.txt > scripts/requirements.txt
 
     - name: Copy Scripts to Home Assistant
       uses: appleboy/scp-action@v0.1.7
