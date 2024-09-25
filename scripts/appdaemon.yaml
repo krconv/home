@@ -1,0 +1,7 @@
+---
+appdaemon:
+  plugins:
+    HASS:
+      type: hass
+
+admin:

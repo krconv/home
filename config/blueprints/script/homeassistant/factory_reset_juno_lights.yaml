@@ -1,0 +1,127 @@
+blueprint:
+  name: Factory reset Juno Lights
+  description: >-
+    A script that sends an actionable notification with a confirmation before
+    running the specified action.
+  domain: script
+  input:
+    hardwired_switch:
+      name: Hardwired Switch
+      description: Switch that controls power to the lights
+      selector:
+        device:
+          filter:
+            integration: zha
+    remote_switch:
+      name: Remote Switch
+      description: Switch that controls the lights
+      selector:
+        device:
+          filter:
+            integration: zha
+    lights:
+      name: Lights
+      description:
+      selector:
+        device:
+          filter:
+            integration: zha
+
+sequence:
+  - if:
+      - condition: device
+        type: is_on
+        device_id: 12dc673752d32e4f05a7716a3fe921cc
+        entity_id: 64bb30316e32d35cbdd239f2eb3595f8
+        domain: switch
+    then:
+      - type: turn_off
+        device_id: 12dc673752d32e4f05a7716a3fe921cc
+        entity_id: 64bb30316e32d35cbdd239f2eb3595f8
+        domain: switch
+      - variables:
+          disabled_smart_bulb_mode: true
+    alias: Turn off Smart bulb mode
+  - if:
+      - condition: device
+        type: is_off
+        device_id: 12dc673752d32e4f05a7716a3fe921cc
+        entity_id: 2abe282ea160aabeeb00a499da1c1d32
+        domain: light
+    then:
+      - type: turn_on
+        device_id: 12dc673752d32e4f05a7716a3fe921cc
+        entity_id: 2abe282ea160aabeeb00a499da1c1d32
+        domain: light
+    alias: Turn on power
+  - repeat:
+      count: 5
+      sequence:
+        - type: turn_off
+          device_id: 12dc673752d32e4f05a7716a3fe921cc
+          entity_id: 2abe282ea160aabeeb00a499da1c1d32
+          domain: light
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 300
+        - type: turn_on
+          device_id: 12dc673752d32e4f05a7716a3fe921cc
+          entity_id: 2abe282ea160aabeeb00a499da1c1d32
+          domain: light
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 1
+            milliseconds: 0
+    alias: Toggle power five times
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - repeat:
+      sequence:
+        - action: zha.permit
+          data:
+            duration: 60
+            ieee: 6c:5c:b1:ff:fe:5e:3b:d2
+        - type: turn_off
+          device_id: 12dc673752d32e4f05a7716a3fe921cc
+          entity_id: 2abe282ea160aabeeb00a499da1c1d32
+          domain: light
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 300
+        - type: turn_on
+          device_id: 12dc673752d32e4f05a7716a3fe921cc
+          entity_id: 2abe282ea160aabeeb00a499da1c1d32
+          domain: light
+        - delay:
+            hours: 0
+            minutes: 1
+            seconds: 10
+            milliseconds: 0
+      until:
+        - condition: template
+          value_template:
+            "{{states.light\n |selectattr('entity_id', 'search', 'living_room_ceiling')\n
+            |map(attribute='state')\n |select('eq','on')\n  |list|count >= 4}}"
+  - action: switch.turn_off
+    target:
+      entity_id:
+        - switch.adaptive_lighting_adaptive_lighting
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - action: switch.turn_on
+    target:
+      entity_id: switch.adaptive_lighting_adaptive_lighting
+    data: {}
+description: ""

@@ -1,0 +1,269 @@
+- id: '1707517056044'
+  alias: Office - Nightlight
+  description: ''
+  trigger:
+  - device_id: 7beb265dbef0c86a995598414de8de03
+    domain: zha
+    platform: device
+    type: remote_button_double_press
+    subtype: Down
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.office_recessed_a_light
+      - light.office_recessed_b_light
+      - light.office_recessed_c_light
+      - light.office_recessed_d_light
+    data:
+      color_temp: 500
+      transition: 2
+      brightness_pct: 1
+  mode: single
+- id: '1707517089852'
+  alias: Office - Daylight
+  description: ''
+  trigger:
+  - device_id: 7beb265dbef0c86a995598414de8de03
+    domain: zha
+    platform: device
+    type: remote_button_double_press
+    subtype: Up
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.office_recessed_a_light
+      - light.office_recessed_b_light
+      - light.office_recessed_c_light
+      - light.office_recessed_d_light
+    data:
+      color_temp: 153
+      transition: 2
+      brightness_pct: 100
+  mode: single
+- id: '1710212947787'
+  alias: test1
+  description: ''
+  trigger:
+  - device_id: 7beb265dbef0c86a995598414de8de03
+    domain: zha
+    platform: device
+    type: press
+    subtype: Up
+  condition: []
+  action:
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.office_recessed_a_light
+      - light.office_recessed_b_light
+      - light.office_recessed_c_light
+      - light.office_recessed_d_light
+  mode: single
+- id: '1710213021980'
+  alias: test2
+  description: ''
+  trigger:
+  - device_id: 7beb265dbef0c86a995598414de8de03
+    domain: zha
+    platform: device
+    type: press
+    subtype: Down
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.office_recessed_a_light
+      - light.office_recessed_b_light
+      - light.office_recessed_c_light
+      - light.office_recessed_d_light
+    data: {}
+  mode: single
+- id: '1721600848191'
+  alias: Unlock Tesla
+  description: ''
+  trigger:
+  - platform: event
+    event_data:
+      actionID: 91F83F00-FAB2-4CCD-AC45-26F22A0034AE
+    event_type: ios.action_fired
+  condition: []
+  action:
+  - service: lock.unlock
+    metadata: {}
+    data: {}
+    target:
+      entity_id: lock.tess_doors
+  mode: single
+- id: '1726923322120'
+  alias: Turn off Hiden Switch Smart Bulb Mode
+  description: ''
+  trigger:
+  - device_id: 132dcdf30ec55f2021c97313d09d42ee
+    domain: zha
+    platform: device
+    type: remote_button_quadruple_press
+    subtype: Down
+  condition:
+  - condition: state
+    entity_id: switch.living_room_hidden_switch_smart_bulb_mode_2
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: 12dc673752d32e4f05a7716a3fe921cc
+    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
+    domain: switch
+  - type: turn_off
+    device_id: 12dc673752d32e4f05a7716a3fe921cc
+    entity_id: 2abe282ea160aabeeb00a499da1c1d32
+    domain: light
+  mode: single
+- id: '1726923454309'
+  alias: Turn on
+  description: ''
+  trigger:
+  - device_id: 132dcdf30ec55f2021c97313d09d42ee
+    domain: zha
+    platform: device
+    type: remote_button_quadruple_press
+    subtype: Up
+  condition:
+  - condition: state
+    entity_id: switch.living_room_hidden_switch_smart_bulb_mode_2
+    state: 'off'
+  action:
+  - type: turn_on
+    device_id: 12dc673752d32e4f05a7716a3fe921cc
+    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
+    domain: switch
+  - type: turn_on
+    device_id: 12dc673752d32e4f05a7716a3fe921cc
+    entity_id: 2abe282ea160aabeeb00a499da1c1d32
+    domain: light
+  mode: single
+- id: '1726923811910'
+  alias: Reset JUNO Lights
+  description: Turns a switch on and off to fully reset all attached ceiling lights
+  trigger:
+  - device_id: 132dcdf30ec55f2021c97313d09d42ee
+    domain: zha
+    platform: device
+    type: remote_button_quadruple_press
+    subtype: Config
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 12dc673752d32e4f05a7716a3fe921cc
+    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
+    domain: switch
+  - repeat:
+      count: 5
+      sequence:
+      - type: turn_off
+        device_id: 12dc673752d32e4f05a7716a3fe921cc
+        entity_id: 2abe282ea160aabeeb00a499da1c1d32
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - type: turn_on
+        device_id: 12dc673752d32e4f05a7716a3fe921cc
+        entity_id: 2abe282ea160aabeeb00a499da1c1d32
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+  - type: turn_on
+    device_id: 12dc673752d32e4f05a7716a3fe921cc
+    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
+    domain: switch
+  mode: single
+- id: '1726929091519'
+  alias: Reset Adaptive Lighting
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 12dc673752d32e4f05a7716a3fe921cc
+    entity_id: 2abe282ea160aabeeb00a499da1c1d32
+    domain: light
+  condition: []
+  action:
+  - action: switch.turn_off
+    target:
+      entity_id: switch.adaptive_lighting_living_room_lights
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: switch.turn_off
+    target:
+      entity_id: switch.adaptive_lighting_living_room_lights
+    data: {}
+  mode: single
+- id: '1726966690561'
+  alias: Wake up
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  condition:
+  - condition: or
+    conditions:
+    - condition: zone
+      entity_id: person.kodey_converse
+      zone: zone.home
+    - condition: zone
+      entity_id: person.maddy_converse
+      zone: zone.home
+  action:
+  - type: turn_on
+    device_id: adcb9eaa79cd38c2eed6cc106ff5e106
+    entity_id: 65e51d3e0273dfe2a4e71a36e0f7c189
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.adaptive_lighting_sleep_mode_main_bedroom_lights
+  mode: single
+- id: '1726966790854'
+  alias: night
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:45:00'
+  condition: []
+  action:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.adaptive_lighting_sleep_mode_main_bedroom_lights
+  - delay:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: adcb9eaa79cd38c2eed6cc106ff5e106
+    entity_id: 65e51d3e0273dfe2a4e71a36e0f7c189
+    domain: light
+  mode: single

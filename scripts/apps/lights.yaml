@@ -1,0 +1,17 @@
+circuits:
+  - area: Main Bedroom
+    description: Ceiling Lights
+    switch:
+      ieee: b4:3a:31:ff:fe:26:f9:96
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:a1:12
+      - ieee: 88:57:1d:ff:fe:7c:a1:38
+      - ieee: 88:57:1d:ff:fe:7c:a6:ae
+      - ieee: 88:57:1d:ff:fe:7c:a0:62
+      - ieee: 88:57:1d:ff:fe:7c:b1:98
+      - ieee: 88:57:1d:ff:fe:7c:b0:de
+
+
+config:
+  inovelli_switch:
+    
