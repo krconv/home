@@ -1,0 +1,12 @@
+appdaemon:
+  time_zone: EST
+  latitude: 0.0
+  longitude: 0.0
+  elevation: 0
+  plugins:
+    HASS:
+      type: has
+      ha_url: <home_assistant_base_url>
+      token: <some_long_lived_access_token>s
+
+admin:

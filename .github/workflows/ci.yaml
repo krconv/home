@@ -39,6 +39,10 @@ jobs:
       if: steps.changes.outputs.scripts == 'true'
       run: poetry export --directory=scripts --without-hashes --format=requirements.txt > scripts/requirements.txt
 
+    - name: Copy Prod Config
+      if: steps.changes.outputs.scripts == 'true'
+      run: cp scripts/appdaemon.prod.yaml scripts/appdaemon.yaml
+
     - name: Copy Scripts to Home Assistant
       if: steps.changes.outputs.scripts == 'true'
       uses: appleboy/scp-action@v0.1.7
