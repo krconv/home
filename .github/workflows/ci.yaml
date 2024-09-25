@@ -47,7 +47,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        source: scripts/appdaemon.yaml
+        source: scripts/appdaemon.yaml,scripts/requirements.txt
         target: ${{ secrets.SSH_PATH_SCRIPTS }}
         rm: true
 
@@ -61,3 +61,4 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: scripts
         target: ${{ secrets.SSH_PATH_SCRIPTS }}/apps
+        strip_components: 1
