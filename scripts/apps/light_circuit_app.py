@@ -18,19 +18,26 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
         self._id = 1
 
         await appdaemon.utils.run_in_executor(
-            self, self.ws.send, json.dumps({"id": self._id, "type": "config/device_registry/list"})
+            self,
+            self.ws.send,
+            json.dumps({"id": self._id, "type": "config/device_registry/list"}),
         )
         all_devices = json.loads(self.ws.recv())["result"]
         self._id += 1
 
         await appdaemon.utils.run_in_executor(
-            self, self.ws.send, json.dumps({"id": self._id, "type": "config/entity_registry/list"})
+            self,
+            self.ws.send,
+            json.dumps({"id": self._id, "type": "config/entity_registry/list"}),
         )
         all_entities = json.loads(self.ws.recv())["result"]
         self._id += 1
 
         light_ids = set([light["id"] for light in self.args["lights"]])
         self._lights = [{**device, "entities": [entity for entity in all_entities if entity["device_id"] == device["id"]]} for device in all_devices if device["id"] in light_ids]  # type: ignore
+
+        switch_ids = set([switch["id"] for switch in self.args["switches"]])
+        self._switches = [{**device, "entities": [entity for entity in all_entities if entity["device_id"] == device["id"]]} for device in all_devices if device["id"] in switch_ids]  # type: ignore
 
         self.run_every(self.check_lights, "now", 60)
 
@@ -42,23 +49,18 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
                 for entity in light["entities"]
                 if entity["entity_id"].startswith("light")
             ][0]
-            state = await self.get_state(
-                entity_id=light_entity["entity_id"], namespace="hass"
-            )
-            if state == "unavailable":
-                continue
+            ieee = [id[1] for id in light["identifiers"] if id[0] == "zha"][0]
             await appdaemon.utils.run_in_executor(
                 self,
                 self.ws.send,
                 json.dumps(
                     {
-                        "type": "call_service",
-                        "domain": "light",
-                        "service": f"turn_{state}",
-                        "return_response": False,
-                        "service_data": {
-                            "entity_id": light_entity["entity_id"]
-                        },
+                        "type": "zha/devices/clusters/attributes/value",
+                        "ieee": ieee,
+                        "endpoint_id": 8,
+                        "cluster_id": 6,
+                        "cluster_type": "in",
+                        "attribute": 0,
                         "id": self._id,
                     }
                 ),
@@ -66,8 +68,59 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
             light_result = json.loads(self.ws.recv())
             self._id += 1
             if not light_result["success"]:
-                self.log(f"Light {light_entity['entity_id']} is unresponsive, marking unavailable")
-                await self.set_state(entity_id=light_entity["entity_id"], state="unavailable", namespace="hass")
+                self.log(
+                    f"Light {light_entity['entity_id']} is unresponsive, marking unavailable"
+                )
+                await self.set_state(
+                    entity_id=light_entity["entity_id"],
+                    state="unavailable",
+                    namespace="hass",
+                )
+            else:
+                await self.set_state(
+                    entity_id=light_entity["entity_id"],
+                    state="on" if "true" in light_result["result"] else "off",
+                    namespace="hass",
+                )
+        for switch in self._switches:
+            switch_entity = [
+                entity
+                for entity in switch["entities"]
+                if entity["entity_id"].startswith("light")
+            ][0]
+            ieee = [id[1] for id in switch["identifiers"] if id[0] == "zha"][0]
+            await appdaemon.utils.run_in_executor(
+                self,
+                self.ws.send,
+                json.dumps(
+                    {
+                        "type": "zha/devices/clusters/attributes/value",
+                        "ieee": ieee,
+                        "endpoint_id": 1,
+                        "cluster_id": 6,
+                        "cluster_type": "in",
+                        "attribute": 0,
+                        "id": self._id,
+                    }
+                ),
+            )
+            switch_result = json.loads(self.ws.recv())
+            self._id += 1
+            if not switch_result["success"]:
+                self.log(
+                    f"Light {switch_entity['entity_id']} is unresponsive, marking unavailable"
+                )
+                await self.set_state(
+                    entity_id=switch_entity["entity_id"],
+                    state="unavailable",
+                    namespace="hass",
+                )
+            else:
+                await self.set_state(
+                    entity_id=switch_entity["entity_id"],
+                    state="on" if "true" in switch_result["result"] else "off",
+                    namespace="hass",
+                )
 
 
 class Healthcheck:
