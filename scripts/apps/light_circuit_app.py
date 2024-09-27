@@ -39,7 +39,7 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
         switch_ids = set([switch["id"] for switch in self.args["switches"]])
         self._switches = [{**device, "entities": [entity for entity in all_entities if entity["device_id"] == device["id"]]} for device in all_devices if device["id"] in switch_ids]  # type: ignore
 
-        self.run_every(self.check_lights, "now", 60)
+        self.run_every(self.check_lights, "now", 30)
 
     async def check_lights(self, cb_args):
         self.log("checking lights")
