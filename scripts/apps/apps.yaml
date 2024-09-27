@@ -7,6 +7,16 @@
 #     class: HelloWorld
 
 main_bedroom_ceiling_lights:
-    module: light_circuit
-    class: App
-    area: main_bedroom
+    module: light_circuit_app
+    class: LightCircuitApp
+    area:
+      id: main_bedroom
+    lights:
+      - id: cf835227f8e8dd785890978efb8c726d
+      - id: 5db8413d105845c2329fe391639907eb
+      - id: fd4942d4c36412d9c82876239ee88b1e
+      - id: 4e2b246077bba269e31e0e70906a6e6f
+      - id: f081c7fd3dce59bf363af65df775e127
+      - id: 5c2d9e7fb7c1baefaeff9d012d005368
+    switches:
+      - id: c6547989018cd9917193022b041f40fa

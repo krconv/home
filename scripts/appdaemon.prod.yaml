@@ -7,3 +7,4 @@ appdaemon:
   plugins:
     HASS:
       type: hass
+      namespace: hass

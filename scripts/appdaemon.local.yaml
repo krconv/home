@@ -6,6 +6,7 @@ appdaemon:
   plugins:
     HASS:
       type: hass
+      namespace: hass
       ha_url: <home_assistant_base_url>
       token: <some_long_lived_access_token>s
 
