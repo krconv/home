@@ -20,3 +20,20 @@ main_bedroom_ceiling_lights:
       - id: 5c2d9e7fb7c1baefaeff9d012d005368
     switches:
       - id: c6547989018cd9917193022b041f40fa
+        type: hardwired
+
+living_room_ceiling_lights:
+    module: light_circuit_app
+    class: LightCircuitApp
+    area:
+      id: living_room
+    lights:
+      - id: 473a3110f2641e61d431e1ab722344a6
+      - id: 891f43139f1bdbc44dcb717909a5da5a
+      - id: d1bd21bd028eee91f39bceb532fd2511
+      - id: 1e1932dc4500123ce6adfcda91db347b
+    switches:
+      - id: 12dc673752d32e4f05a7716a3fe921cc
+        type: hardwired
+      - id: 132dcdf30ec55f2021c97313d09d42ee
+        type: remote
