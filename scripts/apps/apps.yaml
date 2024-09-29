@@ -1,39 +1,569 @@
-# # configure_light_circuits:
-# #   module: src.configure_light_circuits
-# #   class: ConfigureLightCircuits
+hass_module:
+  module: hass_module
+  global: true
 
-# hello_world:
-#     module: hello
-#     class: HelloWorld
+utils_module:
+  module: utils_module
+  global: true
 
 main_bedroom_ceiling_lights:
-    module: light_circuit_app
-    class: LightCircuitApp
-    area:
-      id: main_bedroom
-    lights:
-      - id: cf835227f8e8dd785890978efb8c726d
-      - id: 5db8413d105845c2329fe391639907eb
-      - id: fd4942d4c36412d9c82876239ee88b1e
-      - id: 4e2b246077bba269e31e0e70906a6e6f
-      - id: f081c7fd3dce59bf363af65df775e127
-      - id: 5c2d9e7fb7c1baefaeff9d012d005368
-    switches:
-      - id: c6547989018cd9917193022b041f40fa
-        type: hardwired
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: main_bedroom
+  lights:
+    - id: cf835227f8e8dd785890978efb8c726d
+    - id: 5db8413d105845c2329fe391639907eb
+    - id: fd4942d4c36412d9c82876239ee88b1e
+    - id: 4e2b246077bba269e31e0e70906a6e6f
+    - id: f081c7fd3dce59bf363af65df775e127
+    - id: 5c2d9e7fb7c1baefaeff9d012d005368
+  switches:
+    - id: adcb9eaa79cd38c2eed6cc106ff5e106
+      type: hardwired
 
 living_room_ceiling_lights:
-    module: light_circuit_app
-    class: LightCircuitApp
-    area:
-      id: living_room
-    lights:
-      - id: 473a3110f2641e61d431e1ab722344a6
-      - id: 891f43139f1bdbc44dcb717909a5da5a
-      - id: d1bd21bd028eee91f39bceb532fd2511
-      - id: 1e1932dc4500123ce6adfcda91db347b
-    switches:
-      - id: 12dc673752d32e4f05a7716a3fe921cc
-        type: hardwired
-      - id: 132dcdf30ec55f2021c97313d09d42ee
-        type: remote
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: living_room
+  lights:
+    - id: 473a3110f2641e61d431e1ab722344a6
+    - id: 891f43139f1bdbc44dcb717909a5da5a
+    - id: d1bd21bd028eee91f39bceb532fd2511
+    - id: 1e1932dc4500123ce6adfcda91db347b
+  switches:
+    - id: 12dc673752d32e4f05a7716a3fe921cc
+      type: hardwired
+    - id: 132dcdf30ec55f2021c97313d09d42ee
+      type: remote
+
+island_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: island
+  lights:
+    - id: 457845d7434a32d2d9298218c259c760
+    - id: cc76d57fcbece9b499def3923dc2606c
+    - id: 74f19eaac05fba8f94dba40d4d0d4424 
+  switches:
+    - id: 1a08a4560d76eeaa7b6e0b50d62593ca 
+      type: hardwired
+    - id: f95cc1fbf5ae93b7a7b4d85bc13a2567
+      type: remote
+
+# island_counter_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: island
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+pantry_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: pantry
+  switches:
+    - id: b1647e03cfb0053ea3831e37d2334d33
+      type: hardwired
+
+kitchen_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: kitchen
+  lights:
+    - id: 71c14a8fa2d3de4ac40786d11ecfcf7f 
+    - id: 9175fd32ff6f582ea61c0425fa55cf5d
+    - id: b9cc5bae91068e413c25261b6d3291b4 
+    - id: a41670eceed99913187d86aa2377ac1a 
+  switches:
+    - id: ade2eb6faea676dc499045252273cb22
+      type: hardwired
+    - id: 0f5dc778d3fb2b31f38cfb67499fbf01 
+      type: remote
+
+kitchen_sink_light:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: kitchen
+  switches:
+    - id: fc82629aca52d3c28c9f4116a4d23b42
+      type: hardwired
+
+dining_room_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: dining_room
+  lights:
+    - id: TODO
+    - id: 8317d150a3fc04846d7d086fbedae49d
+    - id: f9850f7063498e81cc91225f9d6a7809
+    - id: fb9cf1e4600e71ce9a86f961929dadcf
+  switches:
+    - id: fc08d0f2b43cea9f0cd8523209d6f85f
+      type: hardwired
+    - id: e3aa253d41acc4243ce42844914211dc
+      type: remote
+    - id: 0221b8afe8789a05253e808c16736fc4
+      type: remote
+
+dining_room_table_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: dining_room
+  switches:
+    - id: c4fe135859e2421bd6b6a2bedc7ce396
+      type: hardwired
+
+# entry_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: entry
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+# entry_chandalier_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: entry
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+porch_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: porch
+  lights:
+    - id: TODO
+    - id: TODO
+    - id: TODO
+    - id: TODO
+  switches:
+    - id: TODO
+      type: hardwired
+
+porch_front_door_light:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: porch
+  switches:
+    - id: TODO
+      type: hardwired
+
+# mudroom_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: mudroom
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+#     - id: TODO
+#       type: remote
+#     - id: TODO
+#       type: remote
+
+small_bathroom_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: small_bathroom
+  lights:
+    - id: TODO
+    - id: TODO
+  switch:
+    - id: TODO
+      type: hardwired
+
+small_bathroom_mirror_light:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: small_bathroom
+  switches:
+    - id: TODO
+      type: hardwired
+
+# garage_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: garage
+#   switches:
+#     - id: TODO
+#       type: hardwired
+#     - id: TODO
+#       type: remote
+
+# garage_door_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: garage
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+# garage_side_door_light:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: garage
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+driveway_spot_light:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: outside
+  switches:
+    - id: d5d0e18270f9aa639b9a82b864d27fd6
+      type: hardwired
+
+# basement_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: basement
+#   switches:
+#     - id: TODO
+#       type: hardwired
+    
+# basement_stairs_light:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: basement
+#   lights:
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+#     - id: TODO
+#       type: remote
+
+# stairway_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: stairway
+#   lights: 
+#     - id: 1ca6f0597d14974f03bbceddbeb49561
+#   switches:
+#     - id: TODO 
+#       type: hardwired
+#     - id: TODO    
+#       type: remote
+
+stairway_scone_light:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: stairway
+  switches:
+    - id: TODO
+      type: hardwired
+
+west_hallway_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: west_hallway
+  lights:
+    - id: 5febde22f22bbdd30f793f75e8a75a51
+    - id: 022d6eb5a83fd5977b063b8f934ea6c8
+    - id: 1ca6f0597d14974f03bbceddbeb49561
+  switches:
+    - id: 8c926b135cde20a4be48785cd036905c
+      type: hardwired
+    - id: e2a98c2c41b5e9f97f7e0a3cf49edc83
+      type: remote
+
+# nook_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: nook
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+# laundry_room_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: laundry_room
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+# main_bathroom_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: main_bathroom
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: bbaf18141769c06980a05ee3aed3050a
+#       type: hardwired
+
+# main_bathroom_shower_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: main_bathroom
+#   lights:
+#     - id: TODO
+#     - id: 789c0f7093a4456a6ee4ac7dde3369f9
+#   switches:
+#     - id: 260eb836e46b5a93e1459f70adee93e2
+#       type: hardwired
+
+main_bathroom_mirror_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: main_bathroom
+  switches:
+    - id: 648913fd4de26b6d605abf431f1fc3e6
+      type: hardwired
+
+main_bedroom_closet_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: main_bedroom
+  switches:
+    - id: c6547989018cd9917193022b041f40fa
+      type: hardwired
+      name_override: main_bedroom_closet
+
+east_hallway_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: east_hallway
+  # lights:
+  #   - id: TODO
+  #   - id: TODO
+  #   - id: TODO
+  switches:
+    - id: 2efc35aa137ddd3bdaab5f6ba8d85418
+      type: hardwired
+    - id: 7f86df3664d838d9b436561a78de183b
+      type: remote
+
+south_bedroom_ceiling_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: south_bedroom
+  lights:
+    - id: 679093909e09cf823c6be082163c77c0
+    - id: d249f082b900623571b970e673b60b8b
+    - id: 7eee346677ad66620cf629876f32c494
+    - id: fe9443a5eb7744382508387b70dc292b
+  switches:
+    - id: 7beb265dbef0c86a995598414de8de03
+      type: hardwired
+
+# north_bedroom_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: north_bedroom
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+# west_bathroom_ceiling_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: west_bathroom
+#   lights:
+#     - id: TODO
+#     - id: TODO
+#     - id: TODO
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+# west_bathroom_mirror_lights:
+#   module: light_circuit_app
+#   class: LightCircuitApp
+#   dependencies:
+#     - utils_module
+#     - hass_module
+#   area:
+#     id: west_bathroom
+#   switches:
+#     - id: TODO
+#       type: hardwired
+
+unknown_lights:
+  module: light_circuit_app
+  class: LightCircuitApp
+  dependencies:
+    - utils_module
+    - hass_module
+  area:
+    id: west_bathroom
+  lights:
+    - id: 423eff2d2abc653e82e772db031f03f2
+    - id: 55fb42931c6dec36d1a594ab8e222819
+    - id: 47c35c93bea970c5b463c7118ab43384
+    - id: 160f65863b96f6626b01356441625c85
+    - id: 4057a1f648b150dd82476648d24c6f00
+  switches:
+    - id: cdbb6692e0ad6c836e49c64f8f7f54de
+      type: hardwired
+    - id: 173b4d6f4e0e7dffda980fc614b62596
+      type: remote
