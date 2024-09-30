@@ -29,21 +29,31 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
         self.run_every(self._configure_circuit, "now", 60 * 60)
         self.run_every(self._healthcheck, "now", 60)
 
+    async def get_lights(self) -> list[hass_module.HomeAssistantDevice]:
+        return self._lights
+
+    async def get_switches(self) -> list[hass_module.HomeAssistantDevice]:
+        return self._switches
+
+    async def get_friendly_name(self) -> str:
+        return self._camelcase(self.name)
+
     async def _load_devices(self):
         if not self._lock.acquire(blocking=False):
             return
+
+        self._lights = []
+        self._switches = []
 
         if "TODO" in str(self.args):
             raise ValueError("Please configure the app with the correct devices")
 
         try:
-            self._lights = []
             for light_args in self.args.get("lights", []):
                 light = await self._device_registry.get_device(light_args["id"])
                 light.args = light_args
                 self._lights.append(light)
 
-            self._switches = []
             for switch_args in self.args.get("switches", []):
                 switch = await self._device_registry.get_device(switch_args["id"])
                 switch.args = switch_args
@@ -155,7 +165,7 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
         for entity in device.entities:
             entity_type = entity.key
             entity_id = f"{entity.domain}.{api_name}_{entity_type}"
-            entity_name = f"{friendly_name} {self._camelcase(entity_type)}"
+            entity_name = f"{friendly_name} {self._camelcase(entity_type) if entity_type != 'light' else ''}"
 
             if entity.entity_id != entity_id:
                 self.log(f'Updating entity "{entity.name}" ID to {entity_id}')

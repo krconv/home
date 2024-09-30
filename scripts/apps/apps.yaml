@@ -567,3 +567,25 @@ unknown_lights:
       type: hardwired
     - id: 173b4d6f4e0e7dffda980fc614b62596
       type: remote
+
+debug_lights_dashboard:
+  module: debug_lights_dashboard_app
+  class: DebugLightsDashboardApp
+  dependencies:
+    - hass_module
+    - living_room_ceiling_lights
+    - island_ceiling_lights
+    - kitchen_ceiling_lights
+    - kitchen_sink_light
+    - dining_room_ceiling_lights
+    - dining_room_table_lights
+    - porch_ceiling_lights
+    - entry_ceiling_lights
+    - entry_chandalier_lights
+    - east_hallway_ceiling_lights
+    - main_bedroom_ceiling_lights
+    - main_bathroom_ceiling_lights
+    - main_bathroom_shower_lights
+    - main_bathroom_mirror_lights
+    - unknown_lights 
+  dashboard_view_path: debug-lights
