@@ -25,6 +25,7 @@ main_bedroom_ceiling_lights:
   dependencies:
     - utils_module
     - hass_module
+    - light_profiles_app
   area:
     id: main_bedroom
   lights:
@@ -63,6 +64,7 @@ island_ceiling_lights:
   dependencies:
     - utils_module
     - hass_module
+    - light_profiles_app
   area:
     id: island
   lights:
