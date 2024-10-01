@@ -90,12 +90,14 @@ class HomeAssistantDevice(pydantic.BaseModel):
 
     area_id: str | None = None
 
+    model: str | None = None
+
     args: dict[str, typing.Any] = {}
 
     @pydantic.computed_field
     @property
     def ieee(self) -> str | None:
-        return str(self.identifiers.get("ieee")) if "ieee" in self.identifiers else None
+        return str(self.identifiers.get("zha")) if "zha" in self.identifiers else None
 
     @pydantic.model_validator(mode="before")
     @classmethod

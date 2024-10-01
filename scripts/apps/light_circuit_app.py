@@ -6,6 +6,7 @@ import appdaemon.plugins.hass.hassapi
 import appdaemon.plugins.hass.hassplugin
 import appdaemon.utils
 import hass_module
+import light_profiles_app
 
 
 class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
@@ -25,6 +26,11 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
         self._lock = threading.Lock()
 
         await self._load_devices()
+
+        if "light_profiles_app" in self.args["dependencies"]:
+            self._light_profiles = await self.get_app("light_profiles_app")
+        else:
+            self._light_profiles = None
 
         self.run_every(self._configure_circuit, "now", 60 * 60)
         self.run_every(self._healthcheck, "now", 60)
@@ -285,15 +291,19 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
             return
 
         try:
+            await self._check_health_using_power_consumption()
             await self._fix_non_synced_lights()
 
         finally:
             self._lock.release()
 
-    async def _fix_non_synced_lights(self) -> None:
-        primary_switch = [
+    def _get_primary_switch(self) -> hass_module.HomeAssistantDevice:
+        return [
             switch for switch in self._switches if switch.args["type"] == "hardwired"
         ][0]
+
+    async def _fix_non_synced_lights(self) -> None:
+        primary_switch = self._get_primary_switch()
         primary_switch_entity = self._get_device_entity_by_key(primary_switch, "light")
         if not primary_switch_entity:
             self.error(
@@ -357,6 +367,65 @@ class LightCircuitApp(appdaemon.plugins.hass.hassapi.Hass):
                     ),
                 },
             )
+
+    async def _check_health_using_power_consumption(self) -> None:
+        if not self._light_profiles:
+            return
+
+        primary_switch = self._get_primary_switch()
+        power_consumption_entity = self._get_device_entity_by_key(
+            primary_switch, "power"
+        )
+        current_power_consumption = await self.get_state(
+            entity_id=power_consumption_entity.entity_id
+        )
+        current_brightness = await self.get_state(
+            entity_id=self._get_device_entity_by_key(primary_switch, "light").entity_id,
+            attribute="brightness",
+        )
+        expected_power_consumption = (
+            await self._light_profiles.get_expected_power_consumption(
+                current_brightness, self._lights
+            )
+        )
+
+        tolerance = 1.5
+        if (
+            current_power_consumption
+            and abs(float(current_power_consumption) - expected_power_consumption)
+            > tolerance
+        ):
+            self.log(
+                f"Power consumption for {primary_switch.name} is not within tolerance"
+            )
+            await self._show_unhealthy_notification()
+
+    async def _show_unhealthy_notification(self) -> None:
+        for switch in self._switches:
+            await self._ws.call(
+                "call_service",
+                domain="zha",
+                service="issue_zigbee_cluster_command",
+                service_data={
+                    "ieee": switch.ieee,
+                    "endpoint_id": 1,
+                    "cluster_id": 64561,
+                    "cluster_type": "in",
+                    "command": 3,
+                    "command_type": "server",
+                    "params": {
+                        "led_color": 0,
+                        "led_effect": 4,
+                        "led_level": 40,
+                        "led_duration": 255,
+                        "led_number": 6,
+                        "notification_type": 5,
+                    },
+                },
+            )
+
+
+# 100%
 
 
 """

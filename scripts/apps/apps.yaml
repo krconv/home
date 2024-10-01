@@ -6,6 +6,19 @@ utils_module:
   module: utils_module
   global: true
 
+light_profiles_app:
+  module: light_profiles_app
+  class: LightProfilesApp
+  dependencies:
+    - utils_module
+    - hass_module
+  models:
+    juno: 
+      friendly_name: Juno
+      model: ABL-LIGHT-Z-001
+      brightness_function: 8.15 + 16.6 * log(x, e)
+      power_function: 0.0536 * x + 0.728
+
 main_bedroom_ceiling_lights:
   module: light_circuit_app
   class: LightCircuitApp
@@ -92,6 +105,7 @@ kitchen_ceiling_lights:
   dependencies:
     - utils_module
     - hass_module
+    - light_profiles_app
   area:
     id: kitchen
   lights:
