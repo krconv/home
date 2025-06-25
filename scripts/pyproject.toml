@@ -2,10 +2,14 @@
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "~3.11"
 pydantic = "^2.9.2"
+nest-asyncio = "^1.6.0"
+paho-mqtt = "^2.1.0"
+appdaemon = "^4.5.10"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
 mypy = "^1.11.2"
-appdaemon = "^4.4.2"
+appdaemon = "^4.5.10"
+

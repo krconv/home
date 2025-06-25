@@ -1,0 +1,271 @@
+circuits:
+  - id: living_room_ceiling_lights
+    group_id: b-2
+    lights:
+      - ieee: 88:57:1d:ff:fe:0e:21:b2
+      - ieee: 88:57:1d:ff:fe:7c:c3:60
+      - ieee: 88:57:1d:ff:fe:7c:9c:86
+      - ieee: 88:57:1d:ff:fe:0e:52:04
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:23:6f
+        type: hardwired
+      - ieee: 6c:5c:b1:ff:fe:5e:3b:d2
+  - id: kitchen_ceiling_lights
+    group_id: b-5
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:a0:f4
+      - ieee: 88:57:1d:ff:fe:7c:9f:82
+      - ieee: 88:57:1d:ff:fe:7c:a5:f4
+      - ieee: 88:57:1d:ff:fe:7c:a0:56
+    switches:
+      - ieee: 94:de:b8:ff:fe:45:85:c5
+        type: hardwired
+      - ieee: b4:3a:31:ff:fe:2f:2b:0a
+  - id: kitchen_sink_light
+    group_id: b-8
+    switches:
+      - ieee: 38:5b:44:ff:fe:ee:19:28
+        type: hardwired
+  - id: island_ceiling_lights
+    group_id: b-3
+    lights:
+      - ieee: 88:57:1d:ff:fe:0f:f1:42
+      - ieee: 88:57:1d:ff:fe:76:88:d0
+      - ieee: 88:57:1d:ff:fe:53:ea:fc
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:2b:00
+      - ieee: b4:3a:31:ff:fe:2f:38:76
+  - id: island_lights
+    group_id: b-7
+    switches:
+      - ieee: b4:3a:31:ff:fe:34:46:11
+        type: hardwired
+  - id: dining_room_ceiling_lights
+    group_id: b-4
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:c4:dc
+      - ieee: 88:57:1d:ff:fe:17:5c:ec
+      - ieee: 88:57:1d:ff:fe:0e:1c:62
+      - ieee: 88:57:1d:ff:fe:0e:1b:88
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:30:92
+      - ieee: b4:3a:31:ff:fe:2f:2b:59
+        type: hardwired
+      - ieee: b4:3a:31:ff:fe:2f:46:62
+  - id: entry_ceiling_lights
+    group_id: b-10
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:9f:00
+      - ieee: 88:57:1d:ff:fe:0e:54:82
+    switches:
+      - ieee: b4:3a:31:ff:fe:26:e4:c6
+        type: hardwired
+      - ieee: b4:3a:31:ff:fe:38:0a:4c
+  - id: porch_ceiling_lights
+    group_id: b-6
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:b2:60
+      - ieee: 88:57:1d:ff:fe:7c:ae:9e
+      - ieee: 88:57:1d:ff:fe:7c:b1:22
+      - ieee: 88:57:1d:ff:fe:0f:fc:0a
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:19:0c
+        type: hardwired # maybe?
+  - id: porch_lantern
+    group_id: b-9
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:04:d2
+        type: hardwired
+  - id: mudroom_ceiling_lights
+    group_id: b-11
+    lights:
+      - ieee: 88:57:1d:ff:fe:0f:f2:5a
+      - ieee: 88:57:1d:ff:fe:7c:c3:34
+      - ieee: 88:57:1d:ff:fe:7c:9d:66
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:55:1d
+        type: hardwired
+      - ieee: b4:3a:31:ff:fe:2f:42:60
+      - ieee: b4:3a:31:ff:fe:2f:42:48
+  - id: basement_ceiling_lights
+    group_id: b-12
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:9f:c6
+    switches:
+      - ieee: 94:34:69:ff:fe:08:97:90
+      - ieee: b4:3a:31:ff:fe:33:f9:86
+      - ieee: 94:34:69:ff:fe:05:c9:36
+        type: hardwired
+      # - ieee: b4:3a:31:ff:fe:2f:27:ff # this is currently unplugged
+  - id: garage_ceiling_lights
+    group_id: b-13
+    switches:
+      - ieee: 94:34:69:ff:fe:05:d3:ec
+      - ieee: b4:3a:31:ff:fe:2f:2e:7e
+        type: hardwired
+  - id: side_lantern
+    group_id: b-14
+    switches:
+      - ieee: 94:34:69:ff:fe:08:8e:6d
+        type: hardwired
+  - id: garage_door_lights
+    group_id: b-15
+    lights:
+      - ieee: 88:57:1d:ff:fe:0e:2f:12
+      - ieee: 88:57:1d:ff:fe:7c:a0:40
+    switches:
+      - ieee: 94:34:69:ff:fe:08:92:55
+        type: hardwired
+  - id: small_bathroom_ceiling_light
+    group_id: b-16
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:c8:52
+    switches:
+      - ieee: 94:34:69:ff:fe:08:8f:e5
+        type: hardwired
+  - id: small_bathroom_mirror_light
+    group_id: b-17
+    switches:
+      - ieee: b4:3a:31:ff:fe:34:ff:67
+        type: hardwired
+  - id: main_bedroom_ceiling_lights
+    group_id: a-3
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:a1:12
+      - ieee: 88:57:1d:ff:fe:7c:a1:38
+      - ieee: 88:57:1d:ff:fe:7c:a6:ae
+      - ieee: 88:57:1d:ff:fe:7c:a0:62
+      - ieee: 88:57:1d:ff:fe:7c:b1:98
+      - ieee: 88:57:1d:ff:fe:7c:b0:de
+    switches:
+      - ieee: b4:3a:31:ff:fe:26:f9:96
+        type: hardwired
+  - id: main_bedroom_closet_lights
+    group_id: a-15
+    switches:
+      - ieee: 94:34:69:ff:fe:08:8f:2a
+        type: hardwired
+  - id: main_bathroom_ceiling_lights
+    group_id: a-4
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:b1:c6
+      - ieee: 88:57:1d:ff:fe:7c:9b:66
+      - ieee: 88:57:1d:ff:fe:7c:a1:40
+    switches:
+      - ieee: b4:3a:31:ff:fe:33:b4:a0
+        type: hardwired
+  - id: main_bathroom_shower_lights
+    group_id: a-5
+    lights:
+      - ieee: 88:57:1d:ff:fe:7b:72:a0
+      - ieee: 88:57:1d:ff:fe:7b:5e:de
+    switches:
+      - ieee: b4:3a:31:ff:fe:34:fa:c2
+        type: hardwired
+  - id: main_bedroom_mirror_lights
+    group_id: a-13
+    switches:
+      - ieee: b4:3a:31:ff:fe:26:f8:7c
+        type: hardwired
+  - id: laundry_room_ceiling_lights
+    group_id: a-6
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:9f:b4
+      - ieee: 88:57:1d:ff:fe:7c:9f:b8
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:05:11
+  - id: east_hallway_ceiling_lights
+    group_id: a-10
+    lights:
+      - ieee: 88:57:1d:ff:fe:0e:1d:18
+      - ieee: 88:57:1d:ff:fe:0f:f4:10
+      - ieee: 88:57:1d:ff:fe:7c:9b:d6
+    switches:
+      - ieee: b4:3a:31:ff:fe:33:b7:ea
+        type: hardwired
+      - ieee: b4:3a:31:ff:fe:2f:05:00
+  - id: nook_ceiling_lights
+    group_id: a-2
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:c9:a6
+      - ieee: 88:57:1d:ff:fe:7c:9b:f2
+    switches:
+      - ieee: b4:3a:31:ff:fe:33:f9:98
+        type: hardwired
+  - id: stairway_sconce
+    group_id: a-9
+    switches:
+      - ieee: b4:3a:31:ff:fe:2f:46:84
+      - ieee: b4:3a:31:ff:fe:33:d3:5d
+      - ieee: b4:3a:31:ff:fe:2f:0a:22
+  - id: west_hallway_ceiling_lights
+    group_id: a-11
+    lights:
+      - ieee: 88:57:1d:ff:fe:10:18:a2
+      - ieee: 88:57:1d:ff:fe:10:18:e6
+      - ieee: 88:57:1d:ff:fe:0e:4c:80
+    switches:
+      - ieee: b4:3a:31:ff:fe:35:03:85
+        type: hardwired
+      - ieee: b4:3a:31:ff:fe:38:19:67
+        type: hardwired
+  - id: west_bathroom_ceiling_lights
+    group_id: a-12
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:9e:70
+      - ieee: 88:57:1d:ff:fe:7c:b0:ae
+      - ieee: 88:57:1d:ff:fe:76:9b:ea
+    switches:
+      - ieee: 94:34:69:ff:fe:08:97:33
+        type: hardwired
+  - id: west_bathroom_mirror_lights
+    group_id: a-14
+    switches:
+      - ieee: 94:34:69:ff:fe:08:97:c6
+        type: hardwired
+  - id: south_bedroom_ceiling_lights
+    group_id: a-7
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:b1:ce
+      - ieee: 88:57:1d:ff:fe:7c:9f:6a
+      - ieee: 88:57:1d:ff:fe:7c:a5:da
+      - ieee: 88:57:1d:ff:fe:7c:9f:94
+    switches:
+      - ieee: b4:3a:31:ff:fe:26:e2:2b
+        type: hardwired
+  - id: north_bedroom_ceiling_lights
+    group_id: a-8
+    lights:
+      - ieee: 88:57:1d:ff:fe:7c:9f:30
+      - ieee: 88:57:1d:ff:fe:7c:a0:1c
+      - ieee: 88:57:1d:ff:fe:7c:a0:48
+      - ieee: 88:57:1d:ff:fe:7c:a0:7a
+    switches:
+      - ieee: b4:3a:31:ff:fe:33:c6:6d
+        type: hardwired
+
+
+schedule:
+  - time: '06:00'
+    brightness: 80
+    temperature: 4000
+    transition: 15m
+  - time: '10:00'
+    brightness: 100
+    temperature: 5000
+    transition: 4h
+  - time: '18:00'
+    brightness: 80
+    temperature: 4000
+    transition: 1h
+  - time: '20:00'
+    brightness: 50
+    temperature: 2700
+    transition: 1h
+  - time: '22:30'
+    brightness: 15
+    temperature: 2700
+    transition: 30m
+
+mqtt:
+  base_topics: [zigbee2mqtt-a, zigbee2mqtt-b]

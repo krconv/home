@@ -9,5 +9,10 @@ appdaemon:
       type: hass
       ha_url: <home_assistant_base_url>
       token: <some_long_lived_access_token>s
-
-admin:
+      mqtt_host: <mqtt_broker_ip>
+      mqtt_port: <mqtt_broker_port>
+      mqtt_username: <mqtt_username>
+      mqtt_password: <mqtt_password>
+      zigbee_base_topics:
+        - zigbee2mqtt-a
+        - zigbee2mqtt-b
