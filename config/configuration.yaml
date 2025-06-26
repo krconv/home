@@ -5,17 +5,10 @@ default_config:
 frontend:
   themes: !include_dir_merge_named themes
 
-zha:
-  zigpy_config:
-    ota:
-      inovelli_provider: true
-
 http:
   use_x_forwarded_for: true
   trusted_proxies:
     - 172.30.33.0/24
-
-zha_toolkit:
 
 utility_meter:
   daily_propane:

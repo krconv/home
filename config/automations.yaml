@@ -1,90 +1,3 @@
-- id: '1707517056044'
-  alias: Office - Nightlight
-  description: ''
-  trigger:
-  - device_id: 7beb265dbef0c86a995598414de8de03
-    domain: zha
-    platform: device
-    type: remote_button_double_press
-    subtype: Down
-  condition: []
-  action:
-  - service: light.turn_on
-    target:
-      entity_id:
-      - light.office_recessed_a_light
-      - light.office_recessed_b_light
-      - light.office_recessed_c_light
-      - light.office_recessed_d_light
-    data:
-      color_temp: 500
-      transition: 2
-      brightness_pct: 1
-  mode: single
-- id: '1707517089852'
-  alias: Office - Daylight
-  description: ''
-  trigger:
-  - device_id: 7beb265dbef0c86a995598414de8de03
-    domain: zha
-    platform: device
-    type: remote_button_double_press
-    subtype: Up
-  condition: []
-  action:
-  - service: light.turn_on
-    target:
-      entity_id:
-      - light.office_recessed_a_light
-      - light.office_recessed_b_light
-      - light.office_recessed_c_light
-      - light.office_recessed_d_light
-    data:
-      color_temp: 153
-      transition: 2
-      brightness_pct: 100
-  mode: single
-- id: '1710212947787'
-  alias: test1
-  description: ''
-  trigger:
-  - device_id: 7beb265dbef0c86a995598414de8de03
-    domain: zha
-    platform: device
-    type: press
-    subtype: Up
-  condition: []
-  action:
-  - service: light.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id:
-      - light.office_recessed_a_light
-      - light.office_recessed_b_light
-      - light.office_recessed_c_light
-      - light.office_recessed_d_light
-  mode: single
-- id: '1710213021980'
-  alias: test2
-  description: ''
-  trigger:
-  - device_id: 7beb265dbef0c86a995598414de8de03
-    domain: zha
-    platform: device
-    type: press
-    subtype: Down
-  condition: []
-  action:
-  - service: light.turn_off
-    target:
-      entity_id:
-      - light.office_recessed_a_light
-      - light.office_recessed_b_light
-      - light.office_recessed_c_light
-      - light.office_recessed_d_light
-    data: {}
-  mode: single
 - id: '1721600848191'
   alias: Unlock Tesla
   description: ''
@@ -101,169 +14,309 @@
     target:
       entity_id: lock.tess_doors
   mode: single
-- id: '1726923322120'
-  alias: Turn off Hiden Switch Smart Bulb Mode
+- id: '1728774710779'
+  alias: Leave Garage
   description: ''
   trigger:
-  - device_id: 132dcdf30ec55f2021c97313d09d42ee
-    domain: zha
-    platform: device
-    type: remote_button_quadruple_press
-    subtype: Down
+  - platform: state
+    entity_id:
+    - binary_sensor.tess_charger
+    from:
+    to: 'off'
   condition:
-  - condition: state
-    entity_id: switch.living_room_hidden_switch_smart_bulb_mode_2
-    state: 'on'
+  - condition: zone
+    entity_id: device_tracker.tess_location_tracker
+    zone: zone.home
   action:
-  - type: turn_off
-    device_id: 12dc673752d32e4f05a7716a3fe921cc
-    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
-    domain: switch
-  - type: turn_off
-    device_id: 12dc673752d32e4f05a7716a3fe921cc
-    entity_id: 2abe282ea160aabeeb00a499da1c1d32
-    domain: light
-  mode: single
-- id: '1726923454309'
-  alias: Turn on
-  description: ''
-  trigger:
-  - device_id: 132dcdf30ec55f2021c97313d09d42ee
-    domain: zha
-    platform: device
-    type: remote_button_quadruple_press
-    subtype: Up
-  condition:
-  - condition: state
-    entity_id: switch.living_room_hidden_switch_smart_bulb_mode_2
-    state: 'off'
-  action:
-  - type: turn_on
-    device_id: 12dc673752d32e4f05a7716a3fe921cc
-    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
-    domain: switch
-  - type: turn_on
-    device_id: 12dc673752d32e4f05a7716a3fe921cc
-    entity_id: 2abe282ea160aabeeb00a499da1c1d32
-    domain: light
-  mode: single
-- id: '1726923811910'
-  alias: Reset JUNO Lights
-  description: Turns a switch on and off to fully reset all attached ceiling lights
-  trigger:
-  - device_id: 132dcdf30ec55f2021c97313d09d42ee
-    domain: zha
-    platform: device
-    type: remote_button_quadruple_press
-    subtype: Config
-  condition: []
-  action:
-  - type: turn_off
-    device_id: 12dc673752d32e4f05a7716a3fe921cc
-    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
-    domain: switch
-  - repeat:
-      count: 5
-      sequence:
-      - type: turn_off
-        device_id: 12dc673752d32e4f05a7716a3fe921cc
-        entity_id: 2abe282ea160aabeeb00a499da1c1d32
-        domain: light
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 1
-          milliseconds: 0
-      - type: turn_on
-        device_id: 12dc673752d32e4f05a7716a3fe921cc
-        entity_id: 2abe282ea160aabeeb00a499da1c1d32
-        domain: light
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 1
-          milliseconds: 0
-  - type: turn_on
-    device_id: 12dc673752d32e4f05a7716a3fe921cc
-    entity_id: 64bb30316e32d35cbdd239f2eb3595f8
-    domain: switch
-  mode: single
-- id: '1726929091519'
-  alias: Reset Adaptive Lighting
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 12dc673752d32e4f05a7716a3fe921cc
-    entity_id: 2abe282ea160aabeeb00a499da1c1d32
-    domain: light
-  condition: []
-  action:
-  - action: switch.turn_off
-    target:
-      entity_id: switch.adaptive_lighting_living_room_lights
+  - action: cover.open_cover
+    metadata: {}
     data: {}
+    target:
+      entity_id: cover.right_garage_door_door
+  - wait_for_trigger:
+    - platform: state
+      entity_id:
+      - binary_sensor.right_garage_door_obstruction
+      from:
+      to: 'on'
+    continue_on_timeout: false
+    timeout:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - wait_for_trigger:
+    - platform: state
+      entity_id:
+      - binary_sensor.right_garage_door_obstruction
+      from:
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 5
+  - action: cover.close_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.right_garage_door_door
+  mode: single
+- id: '1728774931715'
+  alias: Close Garage Doors after 10 minutes
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - cover.left_garage_door_door
+    - cover.right_garage_door_door
+    from:
+    to: open
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  condition: []
+  action:
+  - repeat:
+      count: 10
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - light.left_garage_door_light
+          - light.right_garage_door_light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0
+          milliseconds: 500
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - light.left_garage_door_light
+          - light.right_garage_door_light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0
+          milliseconds: 500
+  - action: cover.close_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - cover.right_garage_door_door
+      - cover.left_garage_door_door
+  - action: notify.mobile_app_kodeys_iphone
+    data:
+      message: Garage doors were closed after being open for 15 minutes
+      title: Garage Doors Closed
+      data:
+        push:
+          sound:
+            name: default
+            critical: 1
+            volume: 1
+  mode: single
+- id: '1728775094174'
+  alias: Open Right Garage Door when Returning Home
+  description: ''
+  triggers:
+  - entity_id: device_tracker.tess_location_tracker
+    zone: zone.home
+    event: enter
+    trigger: zone
+  conditions:
+  - type: is_off
+    condition: device
+    device_id: 9a7f978dd291d7f737ff9ddf8e675379
+    entity_id: 1ddb99020ae0e8fcdd56624195c3024e
+    domain: binary_sensor
+  actions:
   - delay:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 18
       milliseconds: 0
-  - action: switch.turn_off
-    target:
-      entity_id: switch.adaptive_lighting_living_room_lights
+  - action: cover.open_cover
+    metadata: {}
     data: {}
+    target:
+      entity_id: cover.right_garage_door_door
+  - wait_for_trigger:
+    - entity_id:
+      - binary_sensor.right_garage_door_obstruction
+      from:
+      to: 'on'
+      trigger: state
+    timeout:
+      hours: 0
+      minutes: 4
+      seconds: 0
+      milliseconds: 0
+    continue_on_timeout: false
+  - wait_for_trigger:
+    - entity_id:
+      - binary_sensor.right_garage_door_obstruction
+      from:
+      to: 'off'
+      trigger: state
+    timeout:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - wait_for_trigger:
+    - type: turned_on
+      device_id: 9a7f978dd291d7f737ff9ddf8e675379
+      entity_id: 1ddb99020ae0e8fcdd56624195c3024e
+      domain: binary_sensor
+      trigger: device
+    timeout:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+    continue_on_timeout: false
+  - action: cover.close_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.right_garage_door_door
+  - device_id: 9a7f978dd291d7f737ff9ddf8e675379
+    domain: cover
+    entity_id: 25d56ecf7bf3e433998c57b6e824375a
+    type: open
   mode: single
-- id: '1726966690561'
-  alias: Wake up
+- id: '1737639053941'
+  alias: Turn on Tess climate
   description: ''
-  trigger:
-  - platform: time
-    at: 06:00:00
-  condition:
-  - condition: or
-    conditions:
-    - condition: zone
-      entity_id: person.kodey_converse
-      zone: zone.home
-    - condition: zone
-      entity_id: person.maddy_converse
-      zone: zone.home
-  action:
+  triggers:
+  - trigger: event
+    event_type: input_button.press
+    event_data:
+      target:
+        entity_id: input_button.turn_on_tess_climate
+  conditions: []
+  actions:
+  - action: climate.set_hvac_mode
+    metadata: {}
+    data:
+      hvac_mode: auto
+    target:
+      device_id: 9a7f978dd291d7f737ff9ddf8e675379
+  mode: single
+- id: '1738852594924'
+  alias: Notify when Water is shut off
+  description: ''
+  triggers:
+  - type: turned_off
+    device_id: 4dde1a9ccfc1db64dc8354b86f74e80a
+    entity_id: 7845c87b8ef2eb0e05bb5fde65561087
+    domain: switch
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_kodeys_iphone
+    data:
+      title: Water Shut Off
+      data:
+        push:
+          sound:
+            name: default
+            critical: 1
+            volume: 1
+      message: Water valve has been closed
+  mode: single
+- id: '1740481257960'
+  alias: Sunset
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunset
+    offset: 0
+  conditions: []
+  actions:
   - type: turn_on
-    device_id: adcb9eaa79cd38c2eed6cc106ff5e106
-    entity_id: 65e51d3e0273dfe2a4e71a36e0f7c189
+    device_id: 6ec1d78d25bbc6e07085dc938a863d7a
+    entity_id: 71c4e683f556d8a0bb8b1ff5a2d05ef5
     domain: light
-  - delay:
-      hours: 0
-      minutes: 5
-      seconds: 0
-      milliseconds: 0
-  - action: switch.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.adaptive_lighting_sleep_mode_main_bedroom_lights
+  - type: turn_on
+    device_id: 28858655dac169765c0f58bb10bc9292
+    entity_id: 813b82e0b80c9b1cdab9539a3fe0618b
+    domain: light
   mode: single
-- id: '1726966790854'
-  alias: night
+- id: '1740481281163'
+  alias: Sunrise
   description: ''
-  trigger:
-  - platform: time
-    at: '20:45:00'
-  condition: []
-  action:
-  - action: switch.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.adaptive_lighting_sleep_mode_main_bedroom_lights
-  - delay:
-      hours: 0
-      minutes: 30
-      seconds: 0
-      milliseconds: 0
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 0
+  conditions: []
+  actions:
   - type: turn_off
-    device_id: adcb9eaa79cd38c2eed6cc106ff5e106
-    entity_id: 65e51d3e0273dfe2a4e71a36e0f7c189
+    device_id: 6ec1d78d25bbc6e07085dc938a863d7a
+    entity_id: 71c4e683f556d8a0bb8b1ff5a2d05ef5
     domain: light
+  - type: turn_off
+    device_id: 28858655dac169765c0f58bb10bc9292
+    entity_id: 813b82e0b80c9b1cdab9539a3fe0618b
+    domain: light
+  mode: single
+- id: '1743272727098'
+  alias: Notify when Air/Water Filters Need Changing
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.home_air_filters_status
+    - sensor.home_water_filters_status
+    for:
+      hours: 24
+      minutes: 0
+      seconds: 0
+    below: 20
+  conditions: []
+  actions:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      message: Water filters or air filters need replacement soon
+      title: Home needs maintenance
+  mode: single
+- id: '1749598659798'
+  alias: Notify for Roblox
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.roblox_7927218551
+    - sensor.roblox_8482849026
+    - sensor.roblox_8117071479
+    attribute: game_id
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.to_state.attributes.game_id is defined }}
+
+          '
+      sequence:
+      - data:
+          title: Roblox Update
+          message: "\U0001F3AE Joined the game: {{ trigger.to_state.attributes.game
+            }}\n"
+        action: notify.mobile_app_kodeys_iphone
+    default:
+    - data:
+        title: Roblox Update
+        message: "\U0001F6D1 Left the game: {{ trigger.from_state.attributes.game
+          }}\n"
+      action: notify.mobile_app_kodeys_iphone
   mode: single
