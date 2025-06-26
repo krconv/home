@@ -183,13 +183,20 @@ cat << EOF
 }
 EOF"""
 
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".sh", delete=True
-        ) as temp_file:
-            temp_file.write(script_content)
-            script_path = temp_file.name
-            os.chmod(script_path, 0o755)
-            result = subprocess.run(
-                [script_path], capture_output=True, text=True, check=True
-            )
-            return json.loads(result.stdout)
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="w", suffix=".sh", delete=False
+            ) as temp_file:
+                temp_file.write(script_content)
+                temp_file.close()
+                script_path = temp_file.name
+                os.chmod(script_path, 0o755)
+                result = subprocess.run(
+                    [script_path], capture_output=True, text=True, check=True
+                )
+                return json.loads(result.stdout)
+        finally:
+            try:
+                os.unlink(script_path)
+            except NameError:
+                pass
