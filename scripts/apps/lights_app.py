@@ -56,6 +56,7 @@ class LightsApp(appdaemon.plugins.hass.hassapi.Hass):
 
     _zigbee: zigbee.ZigBeeClient
     _config: LightsConfig
+    _lock: asyncio.Lock = asyncio.Lock()
 
     async def initialize(self) -> None:
         """Initialize the app and its components."""
@@ -76,26 +77,32 @@ class LightsApp(appdaemon.plugins.hass.hassapi.Hass):
     async def _setup_schedulers(self):
         """Setup recurring timer for lighting updates and health checks."""
         await self._loop()
-        self.run_every(self._loop, "now", 5 * 60)
+        self.run_every(self._loop, "now", 10 * 60)
 
     async def _loop(self, *args, **kwargs):
         """Called every 5 minutes to update lighting and check device health."""
-        self.log("Starting lighting update and health check...")
-        default_transition = 30  # seconds
+        if self._lock.locked():
+            return
 
-        now = datetime.datetime.now()
-        calculated_lighting = [
-            (self._calculate_circuit_lighting(circuit, now), circuit)
-            for circuit in self._config.circuits
-        ]
-        for (brightness, temperature), circuit in calculated_lighting:
-            await self._update_circuit_lighting(
-                circuit, brightness, temperature, default_transition
-            )
+        async with self._lock:
+            self.log("Starting lighting update and health check...")
+            default_transition = 30  # seconds
 
-        for (brightness, temperature), circuit in calculated_lighting:
-            if await self._heal_circuit_if_needed(circuit):
-                await self._update_circuit_lighting(circuit, brightness, temperature, 1)
+            now = datetime.datetime.now()
+            calculated_lighting = [
+                (self._calculate_circuit_lighting(circuit, now), circuit)
+                for circuit in self._config.circuits
+            ]
+            for (brightness, temperature), circuit in calculated_lighting:
+                await self._update_circuit_lighting(
+                    circuit, brightness, temperature, default_transition
+                )
+
+            for (brightness, temperature), circuit in calculated_lighting:
+                if await self._heal_circuit_if_needed(circuit):
+                    await self._update_circuit_lighting(
+                        circuit, brightness, temperature, 1
+                    )
 
     def _calculate_circuit_lighting(
         self, circuit: LightCircuit, now: datetime.datetime
