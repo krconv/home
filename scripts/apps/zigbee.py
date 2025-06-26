@@ -6,9 +6,9 @@ import typing
 
 import appdaemon.adapi
 import appdaemon.plugins.hass.hassapi
-import mqtt
+import apps.mqtt as mqtt
+import apps.utils as utils
 import pydantic
-import utils
 
 
 class ZigBeeDeviceState(pydantic.BaseModel):

@@ -5,9 +5,9 @@ import os
 import typing
 
 import appdaemon.plugins.hass.hassapi
+import apps.zigbee as zigbee
 import pydantic
 import yaml
-import zigbee
 
 
 class LightDevice(pydantic.BaseModel):
@@ -59,7 +59,9 @@ class LightsApp(appdaemon.plugins.hass.hassapi.Hass):
 
     async def initialize(self) -> None:
         """Initialize the app and its components."""
-        config_path = os.path.join(os.path.dirname(__file__), self.args["config"])
+
+        config_dir = self.plugin_config["HASS"].model_extra["config_dir"]
+        config_path = os.path.join(config_dir, self.args["config"])
         with open(config_path, "r") as file:
             config_data = yaml.safe_load(file)
 

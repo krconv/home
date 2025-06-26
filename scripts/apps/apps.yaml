@@ -1,4 +1,4 @@
 lights:
   module: lights_app
   class: LightsApp
-  config: ../../config/lights.yaml
+  config: lights.yaml

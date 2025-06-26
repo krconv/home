@@ -247,7 +247,7 @@ circuits:
 
 schedule:
   - time: '06:00'
-    brightness: 80
+    brightness: 90
     temperature: 4000
     transition: 15m
   - time: '10:00'
@@ -255,17 +255,17 @@ schedule:
     temperature: 5000
     transition: 4h
   - time: '18:00'
-    brightness: 80
+    brightness: 90
     temperature: 4000
     transition: 1h
   - time: '20:00'
-    brightness: 50
+    brightness: 80
     temperature: 2700
     transition: 1h
   - time: '22:30'
     brightness: 15
     temperature: 2700
-    transition: 30m
+    transition: 2h
 
 mqtt:
   base_topics: [zigbee2mqtt-a, zigbee2mqtt-b]

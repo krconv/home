@@ -16,3 +16,4 @@ appdaemon:
       zigbee_base_topics:
         - zigbee2mqtt-a
         - zigbee2mqtt-b
+      config_dir: config

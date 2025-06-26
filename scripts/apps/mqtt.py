@@ -8,8 +8,8 @@ import tempfile
 import typing
 
 import appdaemon.adapi
+import apps.utils as utils
 import paho.mqtt.client
-import utils
 
 
 @utils.singleton
