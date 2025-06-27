@@ -1,6 +1,13 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+sensor:
+  - platform: roblox
+    api_key: !secret roblox_api_key
+    hassip: "home"
+    accounts: !secret roblox_accounts
+
+
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
@@ -10,16 +17,8 @@ http:
   trusted_proxies:
     - 172.30.33.0/24
 
-utility_meter:
-  daily_propane:
-    source: sensor.propane_tank_usage
-    cycle: daily
-  monthly_propane:
-    source: sensor.propane_tank_usage
-    cycle: monthly
-  yearly_propane:
-    source: sensor.propane_tank_usage
-    cycle: yearly
+debugpy:
+  start: false
 
 automation: !include automations.yaml
 script: !include scripts.yaml
