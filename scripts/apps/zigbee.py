@@ -130,6 +130,11 @@ class ZigBeeClient(appdaemon.plugins.hass.hassapi.Hass):
                 def on_groups_received(topic: str, payload: str):
                     """Callback for receiving devices from MQTT."""
                     try:
+                        if not topic.startswith(base_topic):
+                            self.adapi.log(
+                                f"Received groups on unexpected topic {topic}, expected prefix {base_topic}"
+                            )
+                            return
                         data = json.loads(payload)
                         for group in data:
                             self._groups_by_id[f"{base_topic[-1]}-{group['id']}"] = (
@@ -269,7 +274,7 @@ class ZigBeeClient(appdaemon.plugins.hass.hassapi.Hass):
         updates = [(device, device.state.update) for device in devices_to_check]
         ungrouped_devices: list[ZigBeeDevice] = []
 
-        for attempt in range(24):
+        for attempt in range(120):
             self._mqtt.publish(
                 f"{group.base_topic}/{group.friendly_name}/get", {"state": ""}
             )
